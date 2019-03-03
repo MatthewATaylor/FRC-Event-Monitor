@@ -19,6 +19,9 @@ pygame.display.set_caption("FRC Pit Monitor")
 clock = pygame.time.Clock()
 timeFont = pygame.font.SysFont("arial", 110)
 sponsorFont = pygame.font.SysFont("arial", 60)
+teamLogo = pygame.image.load("Resources/Hudson Hybrids Logo.png")
+teamLogo = pygame.transform.scale(teamLogo, (400, 400))
+teamLogo = teamLogo.convert_alpha()
 
 def setEventParameters():
     global eventTime
@@ -65,6 +68,10 @@ def displayTime():
             deltaTime[i - 1] -= 1
             deltaTime[i] += 60
     
+    if deltaTime[0] < 0:
+        for i in range(0, 3):
+            deltaTime[i] = 0
+
     for i in range(0, 3):
         deltaTime[i] = str(deltaTime[i])
 
@@ -94,16 +101,16 @@ def displaySponsors():
     SPONSOR_TEXT_Y = 475
     SPONSOR_TEXT_HEIGHT = 120
 
-    sponsors = ["Acme of Hudson", "NASA Robotics Alliance Project Registration Grant", "Burton D. Morgan Foundation Extracurricular Support Grant"]
+    sponsors = ["Acme of Hudson", "NASA Robotics Alliance Project Registration Grant", "Burton D. Morgan Foundation Extracurricular Support Grant", "Thomas and Tracy Corpus", "Jeffrey and Angela Gotthardt", "Suzanne and Paul Westlake", "Ivo and Elizabeth Cavoili"]
 
     global previousSlideMillisTime
     currentMillisTime = time.time()
     deltaTime = currentMillisTime - previousSlideMillisTime
     
     global sponsorsIndex
-    if deltaTime > 1:
+    if deltaTime > 2:
         previousSlideMillisTime = currentMillisTime
-        if sponsorsIndex >= 2:
+        if sponsorsIndex >= len(sponsors) - 1:
             sponsorsIndex = 0
         else:
             sponsorsIndex += 1
@@ -114,7 +121,7 @@ def displaySponsors():
 
     global window
     global SCREEN_WIDTH
-    pygame.draw.rect(window, (120, 120, 120), pygame.Rect(0, SPONSOR_TEXT_Y, SCREEN_WIDTH, SPONSOR_TEXT_HEIGHT))
+    pygame.draw.rect(window, (50, 50, 120), pygame.Rect(0, SPONSOR_TEXT_Y, SCREEN_WIDTH, SPONSOR_TEXT_HEIGHT))
     window.blit(sponsorTextSurface, (5, SPONSOR_TEXT_Y + SPONSOR_TEXT_HEIGHT / 2 - sponsorFont.size(sponsorString)[1] / 2))
 
 while isRunning:
@@ -127,8 +134,9 @@ while isRunning:
     # Draw
     window.fill((0, 0, 0))
     pygame.draw.rect(window, (timeBarColor[0], timeBarColor[1], timeBarColor[2]), pygame.Rect(0, 0, SCREEN_WIDTH, TIME_BAR_HEIGHT))
-    pygame.draw.rect(window, (0, 0, 150), pygame.Rect(0, TIME_BAR_HEIGHT, SCREEN_WIDTH, SCREEN_HEIGHT - TIME_BAR_HEIGHT))
+    pygame.draw.rect(window, (100, 100, 125), pygame.Rect(0, TIME_BAR_HEIGHT, SCREEN_WIDTH, SCREEN_HEIGHT - TIME_BAR_HEIGHT))
     pygame.draw.rect(window, (0, 0, 0), pygame.Rect(0, TIME_BAR_HEIGHT, SCREEN_WIDTH, TIME_BAR_HEIGHT / 4))
+    window.blit(teamLogo, (SCREEN_WIDTH / 2 - teamLogo.get_width() / 2, 650))
     displayTime()
     displaySponsors()
     pygame.display.flip()

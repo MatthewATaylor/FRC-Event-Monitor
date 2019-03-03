@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.28307.421
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "Slides", "Slides\Slides.pyproj", "{6E4D89AE-34D2-4CF0-B72E-E68AA1A778DE}"
+Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "FRC Event Monitor", "FRC Event Monitor\FRC Event Monitor.pyproj", "{6E4D89AE-34D2-4CF0-B72E-E68AA1A778DE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
