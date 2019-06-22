@@ -1,5 +1,3 @@
-# I know, this code is very poorly written.
-
 import pygame
 import datetime
 import time
